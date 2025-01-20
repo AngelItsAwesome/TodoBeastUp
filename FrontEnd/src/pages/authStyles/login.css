@@ -1,0 +1,86 @@
+:root {
+    --headerFont: -apple-system, system-ui, "Segoe UI", Roboto, Noto, Oxygen-Sans, Ubuntu, Cantrell, "Helvetica Neue", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
+
+.login__form{
+    display: flex;
+    flex-direction: column;
+    width: 40rem;
+    gap: .5rem;
+    max-width: 100%;
+}
+
+.login__camp{
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #a8a8a8;
+    border-radius: 1rem;
+    padding: .5rem;
+    height: 6.3rem;
+    justify-content: space-between;
+
+    label{
+        font-size: 1.5rem;
+        color: #202020;
+        font-family: var(--headerFont);
+        font-weight: 600;
+    }
+
+    input{
+        font-family: var(--headerFont);
+        font-size: 2rem;
+        width: 100%;
+        border: none;
+        outline: none;
+        font-weight: 300;
+    }
+}
+
+.login__button{
+    background-color: #dc4c3e;
+    padding: 2rem;
+    border: none;
+    border-radius: .7rem;
+    color: white;
+    font-size: 2rem;
+    margin-top: 1rem;
+    font-family: var(--headerFont);
+    font-weight: 600;
+}
+
+.login__button:hover{
+    cursor: pointer;
+}
+
+.login__options{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2rem;
+    a{
+        font-size: 1.5rem;
+        font-family: var(--headerFont);
+        color: #202020;
+    }
+
+    a:hover{
+        cursor: pointer;
+        color: black;
+        font-weight: 600;
+
+    }
+}
+.login__error{
+    height: 1.5rem;
+    font-size: 1.2rem;
+    font-family: var(--headerFont);
+    color: red;
+    text-decoration: underline;
+    margin: 0;
+}
+.loginBtn{
+    background-color: #A94C3E;
+}
+.loginBtn:hover{
+    cursor: default;
+}
