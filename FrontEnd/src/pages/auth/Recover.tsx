@@ -1,23 +1,31 @@
-import React, {ChangeEvent, useState} from "react";
+import {ChangeEvent, useState} from "react";
+import {useParams, useNavigate, NavigateFunction} from "react-router-dom";
 
 function Recover(){
     const [password, setPassword] = useState<string>("");
+    const [ready, setReady] = useState(false);
     const [loading, setLoading] = useState<boolean>(false);
-
-    const sendRecover = async function(){
+    const {token} = useParams<{token: string}>();
+    const nav : NavigateFunction = useNavigate();
+    (async () => {
         try{
-            const res = await fetch("http://localhost:3000/auth/reset");
+            console.log(token);
+            const res = await fetch(`http://localhost:3000/auth/reset/${token}`);
+            if(res.ok){
+                nav('/');
+            }
         }catch(error : unknown){
             console.log(error);
         }
         finally {
             setLoading(false);
         }
-    }
+    })()
+
     return(
         <>
             <header className="login__header">
-                <h1>Recover</h1>
+                <h1>Reset</h1>
             </header>
             <form className={"login__form"}>
                 <span className={"login__error"}></span>
@@ -44,7 +52,7 @@ function Recover(){
                         value={password}
                     />
                 </div>
-                <button onClick={sendRecover} disabled={loading}
+                <button  disabled={loading}
                         className={`login__button ${loading ? 'loginBtn' : ""}`}>Submit
                 </button>
             </form>

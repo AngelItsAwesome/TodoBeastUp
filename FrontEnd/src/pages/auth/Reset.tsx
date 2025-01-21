@@ -4,7 +4,6 @@ import {useNavigate} from "react-router-dom";
 function Reset(){
     const [email, setEmail] = useState<string>("");
     const [loading, setLoading] = useState<boolean>(false);
-    const [verify, setVerify] = useState<boolean>(false);
     const navigate = useNavigate();
     const sendToken = async function(e: React.MouseEvent<HTMLButtonElement>) : Promise<void>{
         e.preventDefault();

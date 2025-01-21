@@ -104,5 +104,14 @@ export const ResetPassword = async (req: Request, res: Response) : Promise<void>
 }
 
 export const RecoverPassword = async (req : Request, res : Response) : Promise<void> => {
-    console.log("doing something");
+    try{
+        const token = req.params.token;
+        const user = await User.findOneAndUpdate({token: token, verified: true}, {token: ""});
+        if(!user) {
+            res.status(401).send({"message":"Something went wrong..."})
+        }
+        res.status(200).send({"message":"Token verified"})
+    }catch(error : unknown){
+        console.log(error);
+    }
 }
