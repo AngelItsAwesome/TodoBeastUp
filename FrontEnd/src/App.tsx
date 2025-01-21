@@ -5,6 +5,7 @@ import Register from './pages/auth/Register.tsx';
 import Check from './pages/auth/Check.tsx'
 import Verify from "./pages/auth/Verified.tsx";
 import Reset from "./pages/auth/Reset.tsx";
+import Recover from "./pages/auth/Recover.tsx";
 
 function App() {
     return (
@@ -15,6 +16,7 @@ function App() {
                     <Route path="/register" element={<Register />} />
                     <Route path="/check" element={<Check />} />
                     <Route path="/forgot" element={<Reset />} />
+                    <Route path="/reset/:token" element={<Recover />} />
                     <Route path="/verify/:token" element={<Verify />} />
                 </Routes>
             </Base>

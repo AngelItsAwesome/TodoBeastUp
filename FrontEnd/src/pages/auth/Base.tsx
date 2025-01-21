@@ -9,7 +9,7 @@ const Base: React.FC<BaseProps> = ({ children }) => {
     return (
         <div className="content">
             <div className="content__principal">
-                <h1 className="content__header">TodoBeast</h1>
+                <a href={"/"}><h1 className="content__header">TodoBeast</h1></a>
                 <main className="content__main">
                     {children}
                 </main>

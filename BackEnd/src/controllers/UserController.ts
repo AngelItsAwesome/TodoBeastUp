@@ -27,7 +27,6 @@ export const RegisterUser = async (req : Request, res : Response) : Promise<void
         const { username, email, password, celphone }: RegisterUserBody = req.body;
         const hashedPassword = await bcrypt.hash(password, salt);
         const token : string = uuidv4();
-        console.log(token);
         const user = new User({username, email, password: hashedPassword,celphone, token: token});
         console.log("saved");
         const mailOptions = {
@@ -75,23 +74,35 @@ export const TokenUser = async (req : Request, res : Response) : Promise<void> =
 }
 
 export const ResetPassword = async (req: Request, res: Response) : Promise<void> => {
-    const email = req.body.email;
+    const email : string = req.body.email.toLowerCase();
     if(!email){
         res.status(401).send({"message":"No Email Provided"});
     }
     try{
-        const token = uuidv4();
-        const user = await User.findOneAndUpdate({email: email, token: true, verified: true}, {token: token});
+        const token : string = uuidv4();
+        const user = await User.findOneAndUpdate({email: email, verified: true}, {token: token});
         if(!user) {
             res.status(404).send({"message": "something went wrong"});
             return;
         }
-
+        const mailOptions = {
+            from: 'Stepbrosite.com',
+            to: email,
+            subject: 'Sending Email using Node.js (EXPRESS)',
+            text: `Helloooo dude!`,
+            html: `<a>Here is your link to recover your account http://localhost:5173/recover/${token}</a>`
+        };
+        await sendMail(mailOptions, info => {
+            console.log("Message sent! nice nice");
+        });
+        res.status(200).send({"message":"Token send"})
     }catch(error: any){
-        const error : string = "No email provided";
-        res.status(400).send({"message": error});
+        console.log(error);
+        const errorMessage : string = "No email provided";
+        res.status(400).send({"message": errorMessage});
     }
+}
 
-
-
+export const RecoverPassword = async (req : Request, res : Response) : Promise<void> => {
+    console.log("doing something");
 }
