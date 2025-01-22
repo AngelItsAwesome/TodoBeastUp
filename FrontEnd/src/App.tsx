@@ -6,10 +6,12 @@ import Check from './pages/auth/Check.tsx'
 import Verify from "./pages/auth/Verified.tsx";
 import Reset from "./pages/auth/Reset.tsx";
 import Recover from "./pages/auth/Recover.tsx";
+import Home from "./pages/main/Home.tsx";
 
 function App() {
     return (
         <BrowserRouter>
+            {/* public routes */}
             <Base>
                 <Routes>
                     <Route path="/" element={<Login />} />
@@ -20,6 +22,10 @@ function App() {
                     <Route path="/verify/:token" element={<Verify />} />
                 </Routes>
             </Base>
+
+            <Routes>
+                <Route path="/home" element={<Home />} />
+            </Routes>
         </BrowserRouter>
     )
 }

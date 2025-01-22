@@ -21,7 +21,6 @@ function Register() {
     const register = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault(); // Prevent default form submission behavior
         setLoading(true);
-
         try {
             const res = await fetch("http://localhost:3000/auth/register", {
                 method: "POST",

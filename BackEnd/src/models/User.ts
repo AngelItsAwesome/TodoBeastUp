@@ -10,7 +10,6 @@ interface IUser{
     token: string;
     createdAt: Date;
 }
-
 const UserSchema = new Schema<IUser>({
     username: { type: String, required: [true, "Username is required"] },
     email: { type: String, required: [true, "Email is required"] },
@@ -35,5 +34,11 @@ UserSchema.path('username').validate({
     },
     message: `The username length cant be greater than 12 characters!!`,
 })
+UserSchema.path('password').validate({
+    validator: async function(password) {
+        return password.length < 6;
+    },
+    message: `password cant be less than 6 characters!!`,
+});
 
 export default model<IUser>('User', UserSchema)

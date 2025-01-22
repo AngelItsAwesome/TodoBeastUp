@@ -2,10 +2,11 @@ import User from '../models/User';
 import bcrypt from "bcrypt";
 import {sendMail} from "../utils/mail";
 import session from 'express-session';
-import {Request, Response} from "express"
+import {NextFunction, Request, Response} from "express"
 import { v4 as uuidv4 } from 'uuid';
 import fs from "fs";
 import {promisify} from "node:util";
+import user from "../models/User";
 const readFileAsync = promisify(fs.readFile)
 
 interface RegisterUserBody {
@@ -13,6 +14,29 @@ interface RegisterUserBody {
     email: string;
     password: string;
     celphone: string;
+}
+interface LoginBody{
+    email: string;
+    password: string;
+}
+export const LogUser = async(req: Request, res: Response) : Promise<void> => {
+    const {email, password} : LoginBody = req.body;
+    try{
+        const user = await User.findOne({email: email.toLowerCase()});
+        if(!user){
+            res.status(400).send({"message": "Invalid email or user"});
+            return;
+        }
+        const comp : string = user.password;
+        const check : boolean = await bcrypt.compare(password, comp);
+        if(check){
+            res.status(200).send({"message": "correct user!"});
+            return;
+        }
+    }catch(e: unknown){
+        console.log(e);
+    }
+    res.status(400).send({"message": "Invalid password"});
 }
 
 export const RegisterUser = async (req : Request, res : Response) : Promise<void> => {
@@ -90,28 +114,57 @@ export const ResetPassword = async (req: Request, res: Response) : Promise<void>
             to: email,
             subject: 'Sending Email using Node.js (EXPRESS)',
             text: `Helloooo dude!`,
-            html: `<a>Here is your link to recover your account http://localhost:5173/recover/${token}</a>`
+            html: `<a href="http://localhost:5173/reset/${token}">Here is your link to recover your account</a>`
         };
         await sendMail(mailOptions, info => {
             console.log("Message sent! nice nice");
         });
         res.status(200).send({"message":"Token send"})
     }catch(error: any){
-        console.log(error);
         const errorMessage : string = "No email provided";
         res.status(400).send({"message": errorMessage});
     }
 }
 
-export const RecoverPassword = async (req : Request, res : Response) : Promise<void> => {
+export const RecoverPasswordVerify = async (req : Request, res : Response) : Promise<void> => {
     try{
         const token = req.params.token;
-        const user = await User.findOneAndUpdate({token: token, verified: true}, {token: ""});
+        const user = await User.findOne({token: token, verified: true});
         if(!user) {
-            res.status(401).send({"message":"Something went wrong..."})
+            console.log("no user");
+            res.status(401).send({"message":"Something went wrong..."});
+            return;
         }
         res.status(200).send({"message":"Token verified"})
     }catch(error : unknown){
-        console.log(error);
+        res.status(400).send({"message": "invalid token"})
     }
 }
+export const ChangePassword = async (req : Request, res : Response) : Promise<void> => {
+    interface passwords{
+        password: string,
+        password2: string,
+    }
+    const token = req.params.token;
+    const {password,password2}: passwords = req.body;
+    if(password !== password2){
+        res.status(400).send({"message":"Passwords are not the same"})
+        return;
+    }
+    if(password.length < 6){
+        res.status(400).send({"message":"Password have to be greather than 6 characters"})
+        return
+    }
+    try{
+        const hashed = await bcrypt.hash(password, 10);
+        const user = await User.findOneAndUpdate({token: token, verified: true}, {password: hashed});
+        if(!user){
+            res.status(400).send("Something went wrong...")
+        }
+    }catch(error: unknown){
+        console.log(error);
+        res.status(400).send("Something wen wrong...")
+    }
+}
+
+
