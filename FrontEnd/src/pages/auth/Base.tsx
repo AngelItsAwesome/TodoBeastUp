@@ -1,17 +1,15 @@
 import '../authStyles/normalize.css'
 import '../authStyles/Base.css';
+import { Outlet } from 'react-router-dom';
 
-interface BaseProps {
-    children: React.ReactNode;
-}
 
-const Base: React.FC<BaseProps> = ({ children }) => {
+const Base = () => {
     return (
         <div className="content">
             <div className="content__principal">
                 <a href={"/"}><h1 className="content__header">TodoBeast</h1></a>
                 <main className="content__main">
-                    {children}
+                    <Outlet />
                 </main>
                 <footer className="content__footer">
                     <h1>&copy; All rights reserved by: Angel</h1>

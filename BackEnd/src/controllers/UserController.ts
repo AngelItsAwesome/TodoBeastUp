@@ -109,7 +109,7 @@ export const ResetPassword = async (req: Request, res: Response) : Promise<void>
             res.status(404).send({"message": "something went wrong"});
             return;
         }
-        const mailOptions = {
+        const mailOptions : object = {
             from: 'Stepbrosite.com',
             to: email,
             subject: 'Sending Email using Node.js (EXPRESS)',
@@ -125,7 +125,6 @@ export const ResetPassword = async (req: Request, res: Response) : Promise<void>
         res.status(400).send({"message": errorMessage});
     }
 }
-
 export const RecoverPasswordVerify = async (req : Request, res : Response) : Promise<void> => {
     try{
         const token = req.params.token;

@@ -6,26 +6,28 @@ import Check from './pages/auth/Check.tsx'
 import Verify from "./pages/auth/Verified.tsx";
 import Reset from "./pages/auth/Reset.tsx";
 import Recover from "./pages/auth/Recover.tsx";
-import Home from "./pages/main/Home.tsx";
+import Home from "./pages/main/Home.tsx"
+import BaseHome from './pages/main/Base.tsx';
 
 function App() {
     return (
         <BrowserRouter>
             {/* public routes */}
-            <Base>
                 <Routes>
-                    <Route path="/" element={<Login />} />
-                    <Route path="/register" element={<Register />} />
-                    <Route path="/check" element={<Check />} />
-                    <Route path="/forgot" element={<Reset />} />
-                    <Route path="/reset/:token" element={<Recover />} />
-                    <Route path="/verify/:token" element={<Verify />} />
-                </Routes>
-            </Base>
+                    <Route path="/" element={<Base />}>
+                        <Route path="/" element={<Login />} />
+                        <Route path="/register" element={<Register />} />
+                        <Route path="/check" element={<Check />} />
+                        <Route path="/forgot" element={<Reset />} />
+                        <Route path="/reset/:token" element={<Recover />} />
+                        <Route path="/verify/:token" element={<Verify />} />
+                    </Route>
 
-            <Routes>
-                <Route path="/home" element={<Home />} />
-            </Routes>
+                    <Route path={""} element={<BaseHome />}>
+                        <Route path={"/home"} element={<Home/>}/>
+                    </Route>
+
+                </Routes>
         </BrowserRouter>
     )
 }
