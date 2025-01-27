@@ -12,19 +12,19 @@ import BaseHome from './pages/main/Base.tsx';
 function App() {
     return (
         <BrowserRouter>
-            {/* public routes */}
                 <Routes>
+                    {/* public routes */}
                     <Route path="/" element={<Base />}>
-                        <Route path="/" element={<Login />} />
-                        <Route path="/register" element={<Register />} />
-                        <Route path="/check" element={<Check />} />
-                        <Route path="/forgot" element={<Reset />} />
-                        <Route path="/reset/:token" element={<Recover />} />
-                        <Route path="/verify/:token" element={<Verify />} />
+                        <Route index element={<Login />} />
+                        <Route path="register" element={<Register />} />
+                        <Route path="check" element={<Check />} />
+                        <Route path="forgot" element={<Reset />} />
+                        <Route path="reset/:token" element={<Recover />} />
+                        <Route path="verify/:token" element={<Verify />} />
                     </Route>
-
-                    <Route path={""} element={<BaseHome />}>
-                        <Route path={"/home"} element={<Home/>}/>
+                    {/* Private routes */}
+                    <Route path="/home" element={<BaseHome />}>
+                        <Route index element={<Home/>}/>
                     </Route>
 
                 </Routes>

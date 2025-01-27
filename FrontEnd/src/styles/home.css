@@ -1,0 +1,19 @@
+.home__header{
+    background-color: #dc4c3e;
+    padding: 2rem;
+    position: relative;
+
+    h1{
+        text-align: center;
+        vertical-align: center;
+        color: #FFF;
+        margin: 0 auto;
+    }
+}
+
+.home__sidebar{
+    display: flex;
+    width: 200px;
+    flex-direction: column;
+    background: black;
+}

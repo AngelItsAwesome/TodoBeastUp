@@ -8,7 +8,6 @@ import fs from "fs";
 import {promisify} from "node:util";
 import user from "../models/User";
 const readFileAsync = promisify(fs.readFile)
-
 interface RegisterUserBody {
     username: string;
     email: string;
@@ -30,6 +29,9 @@ export const LogUser = async(req: Request, res: Response) : Promise<void> => {
         const comp : string = user.password;
         const check : boolean = await bcrypt.compare(password, comp);
         if(check){
+            req.session.user = user;
+            req.session.logged = true;
+            console.log(req.session);
             res.status(200).send({"message": "correct user!"});
             return;
         }
@@ -38,7 +40,6 @@ export const LogUser = async(req: Request, res: Response) : Promise<void> => {
     }
     res.status(400).send({"message": "Invalid password"});
 }
-
 export const RegisterUser = async (req : Request, res : Response) : Promise<void> => {
     const htmlTemplate = await readFileAsync('./src/templates/registerTemplate.html','utf-8');
     interface dynamicObj {

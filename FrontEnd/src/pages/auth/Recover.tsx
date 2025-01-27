@@ -1,4 +1,4 @@
-import {ChangeEvent, useState, MouseEvent} from "react";
+import {ChangeEvent, useState, MouseEvent, useEffect} from "react";
 import {useParams, useNavigate, NavigateFunction} from "react-router-dom";
 
 function Recover(){
@@ -9,19 +9,23 @@ function Recover(){
     const [error, setError] = useState<string>("");
     const {token} = useParams<{token: string}>();
     const nav : NavigateFunction = useNavigate();
-    (async () => {
-        try{
-            const res : Response = await fetch(`http://localhost:3000/auth/reset/${token}`);
-            if(res.ok){
-               setReady(true);
-            }
-        }catch(error : unknown){
-            console.log(error);
-        }
-        finally {
-            setLoading(false);
-        }
-    })()
+
+    useEffect(() => {
+       const checkToken = async () : Promise<void> => {
+           try{
+               const res : Response = await fetch(`http://localhost:3000/auth/reset/${token}`);
+               if(res.ok){
+                   setReady(true);
+               }
+           }catch(error : unknown){
+               console.log(error);
+           }
+           finally {
+               setLoading(false);
+           }
+       }
+        checkToken();
+    },[]);
     const changePassword = async function(e: MouseEvent<HTMLButtonElement>) : Promise<void>{
         e.preventDefault();
         try{

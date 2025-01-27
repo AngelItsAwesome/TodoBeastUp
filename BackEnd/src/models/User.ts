@@ -36,7 +36,7 @@ UserSchema.path('username').validate({
 })
 UserSchema.path('password').validate({
     validator: async function(password) {
-        return password.length < 6;
+        return password.length > 6;
     },
     message: `password cant be less than 6 characters!!`,
 });

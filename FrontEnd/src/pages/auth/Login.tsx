@@ -20,10 +20,11 @@ function Login() {
                         "Content-Type": "application/json",
                     },
                     body: JSON.stringify(credentials),
+                    credentials: "include"
                 })
             if(res.ok){
                 const resM = await res.json();
-                console.log(resM);
+                window.location.href = '/home';
                 return;
             }
             const data = await res.json();
