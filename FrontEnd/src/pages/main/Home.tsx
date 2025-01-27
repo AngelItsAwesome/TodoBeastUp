@@ -8,7 +8,7 @@ function Home(){
     console.log(user);
     console.log("HELLO");
     return(
-        <h1>Ur logged in! welcome</h1>
+        <h1>Ur logged in! welcome {user.username}</h1>
 
     )
 }

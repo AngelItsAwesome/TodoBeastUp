@@ -1,28 +1,40 @@
-import {Outlet} from "react-router-dom"
-import '../../styles/home.css'
+import {Outlet} from "react-router-dom";
+import '../../styles/home.css';
 import {useEffect, useState} from "react";
 import {useOutletContext} from "react-router-dom";
-import  {User} from '../../utils/Interfaces';
-type TypeUser = {user: User};
+import {User} from '../../utils/Interfaces';
+
+type TypeUser = { user: User };
+
 const BaseAuth = () => {
-    const [user, setUser] = useState<User>();
+    const [user, setUser] = useState<User | null>(null); // `null` indicates loading
+    const [loading, setLoading] = useState(true); // To track loading state
+
     useEffect(() => {
         const getSession = async (): Promise<void> => {
             try {
-                const res : Response = await fetch("http://localhost:3000/home/get-session",{
+                const res: Response = await fetch("http://localhost:3000/home/get-session", {
                     credentials: "include",
                 });
-                if(!res.ok){
+                if (!res.ok) {
                     window.location.href = "/";
+                    return;
                 }
                 const session = await res.json();
                 setUser(session);
             } catch (error) {
                 console.error("Error fetching session:", error);
+            } finally {
+                setLoading(false); // Done loading
             }
         };
         getSession();
     }, []);
+
+    if (loading) {
+        return <div>Loading...</div>; // Show a loading message while fetching data
+    }
+
     return (
         <>
             <header className={"home__header"}>
@@ -37,13 +49,14 @@ const BaseAuth = () => {
                 </a>
             </aside>
             <main>
-                <Outlet context={{user}}/>
+                <Outlet context={{user}} />
             </main>
         </>
     );
 };
 
 export default BaseAuth;
-export function useUser(){
+
+export function useUser() {
     return useOutletContext<TypeUser>();
 }
