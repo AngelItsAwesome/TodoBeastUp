@@ -20,8 +20,10 @@ interface LoginBody{
 }
 export const LogUser = async(req: Request, res: Response) : Promise<void> => {
     const {email, password} : LoginBody = req.body;
+    console.log("NIGGAA");
     try{
         const user = await User.findOne({email: email.toLowerCase()});
+        console.log(user)
         if(!user){
             res.status(400).send({"message": "Invalid email or user"});
             return;

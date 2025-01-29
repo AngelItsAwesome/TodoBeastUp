@@ -25,6 +25,7 @@ function App() {
                     {/* Private routes */}
                     <Route path="/home" element={<BaseHome />}>
                         <Route index element={<Home/>}/>
+                        <Route index element={<Home/>}/>
                     </Route>
 
                 </Routes>
