@@ -8,6 +8,7 @@ import Reset from "./pages/auth/Reset.tsx";
 import Recover from "./pages/auth/Recover.tsx";
 import Home from "./pages/main/Home.tsx"
 import BaseHome from './pages/main/Base.tsx';
+import Todo from "./pages/main/Todos.tsx";
 
 function App() {
     return (
@@ -23,9 +24,9 @@ function App() {
                         <Route path="verify/:token" element={<Verify />} />
                     </Route>
                     {/* Private routes */}
-                    <Route path="/home" element={<BaseHome />}>
-                        <Route index element={<Home/>}/>
-                        <Route index element={<Home/>}/>
+                    <Route path="/" element={<BaseHome />}>
+                        <Route path={"home"} element={<Home/>}/>
+                        <Route path="todo" element={<Todo/>}/>
                     </Route>
 
                 </Routes>

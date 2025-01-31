@@ -10,6 +10,11 @@
 }
 @keyframes s2 {to{transform: rotate(1turn)}}
 
+.icon{
+    width: 25px;
+    height: 25px;
+}
+
 .loader {
     width: 48px;
     height: 48px;

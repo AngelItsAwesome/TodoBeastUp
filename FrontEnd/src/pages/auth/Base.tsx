@@ -1,4 +1,4 @@
-import '../authStyles/normalize.css'
+
 import '../authStyles/Base.css';
 import { Outlet } from 'react-router-dom';
 

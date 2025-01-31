@@ -30,15 +30,31 @@ const BaseAuth = () => {
     };
     const routes = [
         {
-            path: "/",
+            path: "/home",
             title: "Home",
+            image: "/src/assets/home/home.png",
         },
         {
-            path: "/List",
+            path: "/Home/Todo",
             title: "List",
+            image: "/src/assets/home/to-do-list.png",
+        },
+        {
+            path: "/Groups",
+            title: "Groups",
+            image: "/src/assets/home/Groups.png",
+        },
+        {
+            path: "/Profile",
+            title: "Profile",
+            image: "/src/assets/home/user.png",
+        },
+        {
+            path: "/Logout",
+            title: "Logout",
+            image: "/src/assets/home/logout.png",
         },
     ]
-
     useEffect(() => {
         getSession();
     }, []);
@@ -52,19 +68,18 @@ const BaseAuth = () => {
     return (
         <>
             <header className={"home__header"}>
-                <h1>TodoBeast {user?.username}</h1>
+                <h1 className={"text-6xl"}>TodoBeast</h1>
             </header>
-
             <div className={"home__principal"}>
                 <aside className={"home__sidebar"}>
                     {routes.map(route => (
-                        <Link to={route.path}>
-                            <div>
-                                <p>{route.title}</p>
+                        <Link className={"my-4"} style={{marginLeft: "10px"}} to={route.path} key={route.path}>
+                            <div className={"home__route"}>
+                                <img className={"icon"} src={route.image} alt="image" />
+                                <p className={"home__route-n"}>{route.title}</p>
                             </div>
                         </Link>
                     ))}
-
                 </aside>
                 <main className={"home__content"}>
                     <Outlet context={{user}}/>
