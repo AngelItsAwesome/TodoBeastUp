@@ -1,6 +1,7 @@
 import {useEffect, useState} from "react";
 import {useUser} from "./Base";
 import Todo from '../Components/TodoComponent.tsx'
+import Group from '../Components/Groups.tsx';
 
 
 function Home(){
@@ -8,13 +9,17 @@ function Home(){
     const {user} = useUser();
     return(
         <>
-            <h1 className="font-bold font-mono">Welcome {user.username}</h1>
-            <h2>What we got here!</h2>
+            <h1 className="font-bold text-5xl mb-10">Welcome {user.username}</h1>
+            <div className={"grid grid-cols-[2fr_1fr] box-s border border-gray-500 border-solid p-5 rounded-xl w-[100%]"}>
+                <div className="">
+                    <h1 className="text-3xl ">Your Recent Activity...</h1>
+                    <Todo></Todo>
+                </div>
 
-            <div className={"grid grid-cols-3 w-[100%]"}>
-                <Todo>
-
-                </Todo>
+                <div>
+                    <h2 className="text-3xl text-center">Your recent groups</h2>
+                    <Group></Group>
+                </div>
             </div>
         </>
 

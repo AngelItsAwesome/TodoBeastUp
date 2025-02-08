@@ -10,6 +10,8 @@ import User from './src/models/User';
 import cors from "cors";
 import authRoutes from './src/routes/authRoutes';
 import homeRoutes from "./src/routes/homeRoutes";
+import taskRoutes from "./src/routes/taskRoutes";
+
 //Middlewares
 app.use(cors({
     origin: 'http://localhost:5173',
@@ -34,6 +36,7 @@ connectDB();
 //Routes
 app.use('/auth', authRoutes);
 app.use('/home', homeRoutes);
+app.use('/task', taskRoutes);
 app.listen(3000, () => {
     console.log("App listening on port 3000");
 });

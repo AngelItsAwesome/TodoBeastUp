@@ -1,12 +1,15 @@
-import {models} from "mongoose";
+import {models,Types} from "mongoose";
 import {Schema, model} from "mongoose";
+import {ITask} from '../utils/ModelInterfaces';
 
 interface IUser{
+    _id: Types.ObjectId;
     username: string;
     email: string;
     password: string;
     celphone: string;
     verified: boolean;
+    tasks : Types.ObjectId[];
     token: string;
     createdAt: Date;
 }
@@ -16,6 +19,7 @@ const UserSchema = new Schema<IUser>({
     password: { type: String, required: [true, "Password is required"] },
     celphone: { type: String, required: [true, "Celphone is required"] },
     verified: {type: Boolean, default: false},
+    tasks: [{type: Schema.Types.ObjectId, ref: "Task"}],
     token: String,
     createdAt: { type: Date, default: Date.now },
 })
