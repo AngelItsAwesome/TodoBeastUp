@@ -23,7 +23,6 @@ export const LogUser = async(req: Request, res: Response) : Promise<void> => {
     console.log("NIGGAA");
     try{
         const user = await User.findOne({email: email.toLowerCase()});
-        console.log(user)
         if(!user){
             res.status(400).send({"message": "Invalid email or user"});
             return;
@@ -168,5 +167,3 @@ export const ChangePassword = async (req : Request, res : Response) : Promise<vo
         res.status(400).send("Something wen wrong...")
     }
 }
-
-

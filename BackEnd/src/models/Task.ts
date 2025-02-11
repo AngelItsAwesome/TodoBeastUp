@@ -1,4 +1,4 @@
-import {Schema,Types, model} from 'mongoose';
+import {Schema, Types, model, models} from 'mongoose';
 import {ITask} from '../utils/ModelInterfaces';
 import User from '../models/User';
 const TaskSchema = new Schema<ITask>({
@@ -8,8 +8,10 @@ const TaskSchema = new Schema<ITask>({
     userId: { type: Schema.Types.ObjectId, ref: "User", required: true },
 });
 TaskSchema.path('userId').validate({
-    validator : async function(userId : Types.ObjectId){
-        return await User.exists({ _id: userId }) !== null;
+    validator: async function(userId) : Promise<boolean> {
+        const user = await models.User.findOne({_id: userId});
+        console.log(!!user);
+        return !!user
     },
     message : "User not found"
 })

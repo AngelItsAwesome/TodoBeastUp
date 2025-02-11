@@ -1,26 +1,24 @@
 import {Response, Request, NextFunction} from "express";
 import {BodyTask} from "../utils/BodyInterfaces";
+import {Types} from 'mongoose'
+import User from "../models/User";
 import Task from "../models/Task";
 import TaskRoutes from "../routes/taskRoutes";
 
 export const createTask = async (req: Request, res: Response) : Promise<void> => {
     const {description, userId} : BodyTask = req.body;
-
     console.log(userId);
     interface dynamicObj {
         [key: string]: any
     }
     const err : dynamicObj= {
     };
-
-
     try{
-        const task = await new Task({description, userId});
+        const userIdT= new Types.ObjectId(userId);
+        const task = await new Task({description: description, userId: userIdT});
         await task.save();
     }catch(error : any){
-        console.log(error.name)
-        console.log("EOROORRRRRRRRRRRRRRRRRRRRRRRR")
-
+        console.log(error);
         if(error.name === 'ValidationError'){
             for(let field in error.errors){
                 const errorM = error.errors[field].message;
