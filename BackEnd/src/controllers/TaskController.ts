@@ -7,6 +7,10 @@ import TaskRoutes from "../routes/taskRoutes";
 
 export const createTask = async (req: Request, res: Response) : Promise<void> => {
     const {description, userId} : BodyTask = req.body;
+    if(userId.length !== 24) {
+        res.status(404).send('invalid user')
+        return
+    }
     console.log(userId);
     interface dynamicObj {
         [key: string]: any
@@ -14,11 +18,11 @@ export const createTask = async (req: Request, res: Response) : Promise<void> =>
     const err : dynamicObj= {
     };
     try{
-        const userIdT= new Types.ObjectId(userId);
+        const userIdT= new Types.ObjectId(+userId);
+
         const task = await new Task({description: description, userId: userIdT});
         await task.save();
     }catch(error : any){
-        console.log(error);
         if(error.name === 'ValidationError'){
             for(let field in error.errors){
                 const errorM = error.errors[field].message;
@@ -30,4 +34,24 @@ export const createTask = async (req: Request, res: Response) : Promise<void> =>
         return
     }
     res.status(200).send({"message": "check logs."});
+}
+
+export const getTaskByUser = async (req: Request, res: Response) : Promise<void> => {
+    const id : string = req.params.userId;
+    if(id.length !== 24) {
+        res.status(404).send('invalid user')
+        return
+    }
+    const userId = new Types.ObjectId(id);
+    try{
+        const tasks = await Task.find({userId: userId});
+        console.log(tasks);
+
+        res.status(200).send({"message": "no problems"})
+        return
+    }catch(error : unknown){
+        console.log(error)
+        res.status(404).send({"message" : "there is something wrong"})
+        return
+    }
 }

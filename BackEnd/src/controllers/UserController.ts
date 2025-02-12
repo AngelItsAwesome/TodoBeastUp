@@ -20,7 +20,6 @@ interface LoginBody{
 }
 export const LogUser = async(req: Request, res: Response) : Promise<void> => {
     const {email, password} : LoginBody = req.body;
-    console.log("NIGGAA");
     try{
         const user = await User.findOne({email: email.toLowerCase()});
         if(!user){
@@ -80,7 +79,6 @@ export const RegisterUser = async (req : Request, res : Response) : Promise<void
         res.status(400).send(err)
     }
 }
-
 export const TokenUser = async (req : Request, res : Response) : Promise<void> => {
     const token = req.params.token;
     if(!token){
@@ -98,7 +96,6 @@ export const TokenUser = async (req : Request, res : Response) : Promise<void> =
         res.status(404).send({"message":"No user fonu"})
     }
 }
-
 export const ResetPassword = async (req: Request, res: Response) : Promise<void> => {
     const email : string = req.body.email.toLowerCase();
     if(!email){
