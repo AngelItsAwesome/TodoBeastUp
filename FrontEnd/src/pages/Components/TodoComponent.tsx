@@ -19,6 +19,9 @@ function Todo({title,content,status,category}: {title: string, content: string, 
                     <span>{category}</span>
                 </div>
             </td>
+            <td>
+                <button className="text-3xl font-bold hover:cursor-pointer">...</button>
+            </td>
         </tr>
     )
 }

@@ -32,6 +32,9 @@ function Home(){
                                     <span className="text-2xl">Priority</span>
                                 </div>
                             </th>
+                            <th className="text-left p-2 text-2xl text-gray-600 font-bold">
+                                
+                            </th>
                         </tr>
                     </thead>
                     <tbody className="w-full h-[80%] md:h-full">
