@@ -68,20 +68,22 @@ const BaseAuth = () => {
     return (
         <>
             <header className={"home__header"}>
-                <h1 className={"text-6xl"}>TodoBeast</h1>
+                <h1 className={"text-6xl font-bold"}>TodoBeast</h1>
             </header>
-            <div className={"home__principal"}>
-                <aside className={"home__sidebar"}>
-                    {routes.map(route => (
-                        <Link className={"my-4"} style={{marginLeft: "10px"}} to={route.path} key={route.path}>
-                            <div className={"home__route"}>
-                                <img className={"icon"} src={route.image} alt="image" />
-                                <p className={"home__route-n"}>{route.title}</p>
-                            </div>
-                        </Link>
-                    ))}
-                </aside>
-                <main className={"home__content"}>
+            <div className="md:flex h-full">
+                <div className="w-[200px]">
+                    <aside className="fixed z-10 flex bottom-0 justify-around w-full bg-slate-50 h-20 md:pt-0 md:justify-normal md:static md:flex-col md:w-[200px] md:h-[100vh]">
+                        {routes.map(route => (
+                            <Link className="h-full w-full hover:bg-gray-300 md:h-20" to={route.path} key={route.path}>
+                                <div className="flex items-center justify-center h-full md:justify-normal md:gap-x-4 md:pl-2">
+                                    <img className="icon" src={route.image} alt="image" />
+                                    <p className="hidden text-2xl ml-1 md:block">{route.title}</p>
+                                </div>
+                            </Link>
+                        ))}
+                    </aside>
+                </div>
+                <main className="w-full overflow-hidden">
                     <Outlet context={{user}}/>
                 </main>
             </div>

@@ -1,19 +1,25 @@
 import {User} from '../../utils/Interfaces.ts'
 
 
-function Todo({title}: {title: string, content: string, date: string, owner: User, status: boolean}){
+function Todo({title,content,status,category}: {title: string, content: string, status: string, category: string}){
     return(
-        <div className="grid grid-cols-[2fr_2fr] items-center gap-x-4 mt-10">
-            <div className="flex items-center gap-x-2">
-                <img className="h-[4rem]" src="/src/assets/home/pending.png" alt={"image"}/>
-                <p className="text-2xl break-all"> Walk the dog in the afternoon</p>
-            </div>
-            <div className="flex gap-x-3">
-                <button className="h-[3rem] w-[9rem] bg-green-500 rounded-xl text-2xl text-black font-bold">Completed</button>
-                <button className="h-[3rem] w-[9rem] bg-yellow-500 rounded-xl text-2xl text-black font-bold">Edit</button>
-                <button className="h-[3rem] w-[9rem] bg-red-500 rounded-xl text-2xl text-black font-bold">DELETE</button>
-            </div>
-        </div>
+        <tr className="border-t-2 border-gray-100 h-20">
+            <td className="p-2 text-2xl whitespace-nowrap"><input type="checkbox" /></td>
+            <td className="p-2 text-2xl whitespace-nowrap">{title}</td>
+            <td className="p-2 text-2xl whitespace-nowrap">{content}</td>
+            <td className="p-2 text-2xl whitespace-nowrap">
+                <div className="flex items-center gap-x-2">
+                    <img className="w-6 h-6" src={`/src/assets/svg/${status}.svg`} alt="Clock"/>
+                    <span>{status}</span>
+                </div>
+            </td>
+            <td className="p-2 text-2xl whitespace-nowrap">
+                <div className="flex items-center gap-x-2">
+                    <img className="w-8 h-8" src={`/src/assets/svg/${category}.svg`} alt="Clock"/>
+                    <span>{category}</span>
+                </div>
+            </td>
+        </tr>
     )
 }
 
