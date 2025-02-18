@@ -19,7 +19,6 @@ export const createTask = async (req: Request, res: Response) : Promise<void> =>
     };
     try{
         const userIdT= new Types.ObjectId(+userId);
-
         const task = await new Task({description: description, userId: userIdT});
         await task.save();
     }catch(error : any){
@@ -35,7 +34,6 @@ export const createTask = async (req: Request, res: Response) : Promise<void> =>
     }
     res.status(200).send({"message": "check logs."});
 }
-
 export const getTaskByUser = async (req: Request, res: Response) : Promise<void> => {
     const id : string = req.params.userId;
     if(id.length !== 24) {
