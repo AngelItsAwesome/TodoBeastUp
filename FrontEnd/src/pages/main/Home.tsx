@@ -11,9 +11,9 @@ function Home(){
         <>
             <div className="max-w-[95%] mx-auto">
                 <h1 className="font-bold text-5xl mb-10">Welcome {user.username}</h1>
-                <h2 className="text-3xl font-bold">Your recent tasks...</h2>
+                <h2 className="text-3xl">Your recent tasks...</h2>
             </div>
-            <div className="border-gray-100 border-2 rounded-lg overflow-auto max-w-[95%] mx-auto">
+            <div className="border-gray-100 border-2 rounded-lg overflow-auto max-w-[95%] mx-auto mt-10">
                 <table className="w-full">
                     <thead className="w-full">
                         <tr>
@@ -49,8 +49,14 @@ function Home(){
                     </tbody>
                 </table>
             </div>
-            <div>
-                <Group></Group>
+            <div className="max-w-[95%] mx-auto mt-20">
+                <h1 className="text-3xl text-center md:text-left">Your Recent Groups:</h1>
+                <div className="grid gap-y-10 justify-items-center grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 mt-10">
+                    <Group name="Coppel Team"></Group>
+                    <Group name="Coppel Team"></Group>
+                    <Group name="Coppel Team"></Group>
+                    <Group name="Coppel Team"></Group>
+                </div>
             </div>
         </>
     )
