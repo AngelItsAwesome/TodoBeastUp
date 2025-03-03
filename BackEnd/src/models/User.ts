@@ -1,5 +1,7 @@
 import {models,Types} from "mongoose";
 import {Schema, model} from "mongoose";
+
+import Task from "../models/Task";
 import {ITask} from '../utils/ModelInterfaces';
 
 interface IUser{
@@ -24,6 +26,13 @@ const UserSchema = new Schema<IUser>({
     createdAt: { type: Date, default: Date.now },
 })
 
+//Cascade Delete
+UserSchema.post("deleteOne", {document: true, query: false} ,async function (user): Promise<void> {
+    await Task.deleteMany({ userId: user._id }); // Remove related tasks
+})
+
+
+//Validations
 UserSchema.path('email').validate({
     validator: async function(email) {
         const user = await models.User.findOne({email});

@@ -8,7 +8,7 @@ function Reset(){
     const sendToken = async function(e: React.MouseEvent<HTMLButtonElement>) : Promise<void>{
         e.preventDefault();
         try{
-            const res : Response = await fetch("http://localhost:3000/auth/recover/",
+            const res : Response = await fetch("http://localhost:4000/auth/recover/",
                 {
                     method: "POST",
                     headers: {

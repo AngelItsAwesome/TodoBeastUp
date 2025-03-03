@@ -13,7 +13,7 @@ function Login() {
         }
         try{
             setReady(true);
-            const res = await fetch("http://localhost:3000/auth/login/",
+            const res = await fetch("http://localhost:4000/auth/login/",
                 {
                     method: "POST",
                     headers: {

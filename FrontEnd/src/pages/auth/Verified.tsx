@@ -9,7 +9,7 @@ function Verify(){
         const fetchData = async () : Promise<void> => {
             try {
                 setLoading(true);
-                const res: Response = await fetch(`http://localhost:3000/auth/token/${token}`);
+                const res: Response = await fetch(`http://localhost:4000/auth/token/${token}`);
                 if (res.ok) {
                     setMessage("User verified!")
                 }

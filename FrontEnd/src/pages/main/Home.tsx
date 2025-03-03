@@ -33,7 +33,7 @@ function Home(){
                                 </div>
                             </th>
                             <th className="text-left p-2 text-2xl text-gray-600 font-bold">
-                                
+
                             </th>
                         </tr>
                     </thead>
@@ -49,18 +49,18 @@ function Home(){
                     </tbody>
                 </table>
             </div>
-            <div className="max-w-[95%] mx-auto mt-20">
+            <div className="max-w-[95%] mx-auto mt-20 h-[600px] sm:h-auto">
                 <h1 className="text-3xl text-center md:text-left">Your Recent Groups:</h1>
-                <div className="grid gap-y-10 justify-items-center grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 mt-10">
-                    <Group name="Coppel Team"></Group>
-                    <Group name="Coppel Team"></Group>
-                    <Group name="Coppel Team"></Group>
-                    <Group name="Coppel Team"></Group>
+                <div className="">
+                    <div className="grid gap-y-10 justify-items-center grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 mt-10">
+                        <Group name="Coppel Team"></Group>
+                        <Group name="Coppel Team"></Group>
+                        <Group name="Coppel Team"></Group>
+                        <Group name="Coppel Team"></Group>
+                    </div>
                 </div>
             </div>
         </>
     )
 }
-
-
 export default Home;

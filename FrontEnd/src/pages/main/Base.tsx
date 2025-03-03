@@ -13,7 +13,7 @@ const BaseAuth = () => {
 
     const getSession = async (): Promise<void> => {
         try {
-            const res: Response = await fetch("http://localhost:3000/home/get-session", {
+            const res: Response = await fetch("http://localhost:4000/home/get-session", {
                 credentials: "include",
             });
             if (!res.ok) {
@@ -35,7 +35,7 @@ const BaseAuth = () => {
             image: "/src/assets/home/home.png",
         },
         {
-            path: "/Home/Todo",
+            path: "/Todo",
             title: "List",
             image: "/src/assets/home/to-do-list.png",
         },
@@ -65,6 +65,7 @@ const BaseAuth = () => {
             </div>
         )
     }
+
     return (
         <>
             <header className={"home__header"}>

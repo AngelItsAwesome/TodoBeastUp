@@ -14,7 +14,7 @@ import taskRoutes from "./src/routes/taskRoutes";
 
 //Middlewares
 app.use(cors({
-    origin: 'http://localhost:5173',
+    origin: 'http://localhost:5174',
     credentials: true
 }))
 app.use(bodyParser.json())
@@ -37,6 +37,6 @@ connectDB();
 app.use('/auth', authRoutes);
 app.use('/home', homeRoutes);
 app.use('/task', taskRoutes);
-app.listen(3000, () => {
-    console.log("App listening on port 3000");
+app.listen(4000, () => {
+    console.log("App listening on port 4000");
 });

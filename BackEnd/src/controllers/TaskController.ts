@@ -1,26 +1,38 @@
 import {Response, Request, NextFunction} from "express";
 import {BodyTask} from "../utils/BodyInterfaces";
-import {Types} from 'mongoose'
+import mongoose,{Types} from 'mongoose'
 import User from "../models/User";
 import Task from "../models/Task";
 import TaskRoutes from "../routes/taskRoutes";
+import user from "../models/User";
 
 export const createTask = async (req: Request, res: Response) : Promise<void> => {
-    const {description, userId} : BodyTask = req.body;
+    const {description, userId, priority, title} : BodyTask = req.body;
+    console.log(userId);
     if(userId.length !== 24) {
         res.status(404).send('invalid user')
         return
     }
-    console.log(userId);
     interface dynamicObj {
         [key: string]: any
     }
     const err : dynamicObj= {
     };
     try{
-        const userIdT= new Types.ObjectId(+userId);
-        const task = await new Task({description: description, userId: userIdT});
+        const userIdT : Types.ObjectId = new Types.ObjectId(userId);
+        console.log("HEHRRREEE")
+        const user = await User.findById(userIdT);
+        console.log(user);
+        const task = await new Task({description: description, userId: userIdT, title: title, priority: priority});
+        if(!user){
+           res.status(404).send({"message":"no user found"})
+            return
+        }
+        console.log("Before taks");
         await task.save();
+        user.tasks.push(task._id);
+        await user.save({ validateBeforeSave: false });
+        console.log("Tasks created");
     }catch(error : any){
         if(error.name === 'ValidationError'){
             for(let field in error.errors){
@@ -42,10 +54,8 @@ export const getTaskByUser = async (req: Request, res: Response) : Promise<void>
     }
     const userId = new Types.ObjectId(id);
     try{
-        const tasks = await Task.find({userId: userId});
-        console.log(tasks);
-
-        res.status(200).send({"message": "no problems"})
+        const tasks = await Task.find({userId: userId}).limit(10);
+        res.status(200).send({"Tasks": tasks});
         return
     }catch(error : unknown){
         console.log(error)

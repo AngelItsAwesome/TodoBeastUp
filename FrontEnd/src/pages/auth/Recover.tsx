@@ -13,7 +13,7 @@ function Recover(){
     useEffect(() => {
        const checkToken = async () : Promise<void> => {
            try{
-               const res : Response = await fetch(`http://localhost:3000/auth/reset/${token}`);
+               const res : Response = await fetch(`http://localhost:4000/auth/reset/${token}`);
                if(res.ok){
                    setReady(true);
                }
@@ -33,7 +33,7 @@ function Recover(){
                 password: password,
                 password2: password2
             }
-            const res = await fetch(`http://localhost:3000/auth/changePassword/${token}`,
+            const res = await fetch(`http://localhost:4000/auth/changePassword/${token}`,
                 {
                     method: "PUT",
                     headers: {

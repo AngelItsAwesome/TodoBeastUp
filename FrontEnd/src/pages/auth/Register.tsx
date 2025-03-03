@@ -22,7 +22,7 @@ function Register() {
         e.preventDefault(); // Prevent default form submission behavior
         setLoading(true);
         try {
-            const res : Response = await fetch("http://localhost:3000/auth/register", {
+            const res : Response = await fetch("http://localhost:4000/auth/register", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
